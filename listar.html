@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Listado de Personas</title>
+</head>
+<body>
+    <h1>Listado de Personas</h1>
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>DNI</th>
+            <th>Edad</th>
+            <th>Acciones</th>
+        </tr>
+        <tr th:each="persona : ${personas}">
+            <td th:text="${persona.nombre}"></td>
+            <td th:text="${persona.apellido}"></td>
+            <td th:text="${persona.dni}"></td>
+            <td th:text="${persona.edad}"></td>
+            <td>
+                <a th:href="@{/personas/{id}(id=${persona.id})}">Ver</a>
+                <a th:href="@{/personas/{id}/edit(id=${persona.id})}">Editar</a>
+                <form th:action="@{/personas/{id}/delete(id=${persona.id})}" method="post">
+                    <input type="submit" value="Eliminar" onclick="return confirm('¿Estás seguro de eliminar esta persona?')">
+                </form>
+            </td>
+        </tr>
+    </table>
+    <a href="/personas/create">Registrar nueva persona</a>
+</body>
+</html>
